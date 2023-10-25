@@ -68,10 +68,10 @@ public class RNWidget {
 
         Bitmap bitmap = drawViewToBitmap(widgetWithViews.getRootView());
         remoteWidgetView.setImageViewBitmap(R.id.rn_widget_image, bitmap);
-
+        remoteWidgetView.setViewVisibility(R.id.progressBar, View.GONE);
+        remoteWidgetView.setViewVisibility(R.id.loading, View.GONE);
         addClickableAreas(widgetId, remoteWidgetView, widgetWithViews);
         addCollectionViews(widgetId, remoteWidgetView, widgetWithViews);
-
         AppWidgetManager.getInstance(appContext)
             .updateAppWidget(widgetId, remoteWidgetView);
     }
@@ -102,6 +102,7 @@ public class RNWidget {
     }
 
     private void addClickableAreas(int widgetId, RemoteViews remoteWidgetView, WidgetWithViews widgetWithViews) {
+            System.out.println("---widgetId"+widgetId);
         remoteWidgetView.removeAllViews(R.id.rn_widget_clickable_container);
         ViewGroup rootView = (ViewGroup) widgetWithViews.getRootView();
         List<ClickableView> clickableViews = widgetWithViews.getClickableViews();
