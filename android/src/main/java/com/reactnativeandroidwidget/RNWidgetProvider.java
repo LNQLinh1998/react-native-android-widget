@@ -2,16 +2,19 @@ package com.reactnativeandroidwidget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
+import android.view.View;
+import android.widget.RemoteViews;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import android.widget.ProgressBar;
 
 import com.facebook.react.bridge.Arguments;
 
@@ -19,7 +22,11 @@ import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
+
 public class RNWidgetProvider extends AppWidgetProvider {
+    private ProgressBar progressBar;
+
+
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
@@ -43,6 +50,7 @@ public class RNWidgetProvider extends AppWidgetProvider {
             Data data = buildData(context, widgetId, widgetAction);
             startBackgroundTask(context, data);
         }
+       
     }
 
     @Override
@@ -200,6 +208,9 @@ public class RNWidgetProvider extends AppWidgetProvider {
     }
 
     private void handleWidgetClick(Context context, Intent incomingIntent, int widgetId) {
+
+
+
         Data additionalData = Data.EMPTY;
 
         if (incomingIntent.hasExtra("clickAction")) {
@@ -209,8 +220,13 @@ public class RNWidgetProvider extends AppWidgetProvider {
                 .putString("clickActionData", new JSONObject(Arguments.fromBundle(clickActionData).toHashMap()).toString())
                 .build();
         }
-
         Data data = buildData(context, widgetId, "WIDGET_CLICK", additionalData);
         startBackgroundTask(context, data);
+        //set hile ProgressBar
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.rn_widget);
+        remoteViews.setViewVisibility(R.id.progressBar, View.VISIBLE);
+         remoteViews.setViewVisibility(R.id.loading, View.VISIBLE);
+        appWidgetManager.updateAppWidget(widgetId, remoteViews);
     }
 }
