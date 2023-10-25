@@ -32,7 +32,7 @@
             android:visibility="visible"
              android:radius="7dp"
              android:layout_gravity="center"
-                android:background="@shape"
+                android:background="@layout/shape"
 
             >
 
