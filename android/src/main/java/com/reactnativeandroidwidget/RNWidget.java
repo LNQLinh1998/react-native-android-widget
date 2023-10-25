@@ -102,7 +102,7 @@ public class RNWidget {
     }
 
     private void addClickableAreas(int widgetId, RemoteViews remoteWidgetView, WidgetWithViews widgetWithViews) {
-            System.out.println("---widgetId"+widgetId);
+      
         remoteWidgetView.removeAllViews(R.id.rn_widget_clickable_container);
         ViewGroup rootView = (ViewGroup) widgetWithViews.getRootView();
         List<ClickableView> clickableViews = widgetWithViews.getClickableViews();
