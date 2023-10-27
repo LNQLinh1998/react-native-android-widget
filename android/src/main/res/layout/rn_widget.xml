@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
-                android:visibility="visible" 
+                android:visibility="visible"
                 />
 
             <TextView
@@ -51,8 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Đang tải"
-
-                />
+                android:text="Đang tải..."
+                android:textColor="#17315C" />
         </LinearLayout>
 </FrameLayout>
